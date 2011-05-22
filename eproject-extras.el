@@ -254,7 +254,9 @@ If PREFIX arg is supplied, run `eproject-find-file'."
 Customize `eproject-todo-expressions' to control what this function looks for."
   (interactive)
   ;; TODO: display output in a buffer called *<project>-TODO* instead of *grep*.
-  (eproject-grep (regexp-opt eproject-todo-expressions)))
+  (eproject-grep (mapconcat (lambda (exp)
+                              (concat "\\(" (concat exp "\\)")))
+                            eproject-todo-expressions "\\|")))
 
 ;;;###autoload
 (defun eproject-multi-isearch-buffers ()
